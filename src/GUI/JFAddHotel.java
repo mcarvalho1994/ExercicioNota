@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Controller.Adress;
+import Controller.Address;
 import Controller.CNPJNotValidException;
 import Controller.CharacterLimitException;
 import Controller.ComboMultiData;
@@ -46,8 +46,8 @@ public class JFAddHotel extends javax.swing.JFrame {
     public void fulfillComponents(String type) throws SQLException
     {
         Vector <ComboMultiData> v = new Vector();
-        Adress adress = new Adress();
-        v = adress.list(type);
+        Address a = new Address();
+        v = a.list(type);
         DefaultComboBoxModel model = new DefaultComboBoxModel(v);
         switch(type)
         {
@@ -66,8 +66,8 @@ public class JFAddHotel extends javax.swing.JFrame {
     public void fulfillComponents(String type, int index) throws SQLException
     {
         Vector <ComboMultiData> v = new Vector();
-        Adress adress = new Adress();
-        v = adress.list(type, index);
+        Address address = new Address();
+        v = address.list(type, index);
         DefaultComboBoxModel model = new DefaultComboBoxModel(v);
         switch(type)
         {
@@ -91,7 +91,7 @@ public class JFAddHotel extends javax.swing.JFrame {
         jTxtBedroomsNumber.setText("");
         jTxtHotelDailyRate.setText("");
         jTxtHotelName.setText("");
-        jTxtAdress.setText("");
+        jTxtAddress.setText("");
         jComboCountries.setSelectedIndex(0);
         jComboStates.setSelectedIndex(0);
         jComboCities.setSelectedIndex(0);
@@ -132,7 +132,7 @@ public class JFAddHotel extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTxtCNPJ = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTxtAdress = new javax.swing.JTextField();
+        jTxtAddress = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jComboCountries = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -190,7 +190,7 @@ public class JFAddHotel extends javax.swing.JFrame {
 
         jLabel9.setText("CNPJ");
 
-        jLabel10.setText("Endereco");
+        jLabel10.setText("Endereço");
 
         jLabel5.setText("País");
 
@@ -242,7 +242,7 @@ public class JFAddHotel extends javax.swing.JFrame {
                             .addComponent(jComboCities, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboStates, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboCountries, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTxtAdress, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTxtAddress, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTxtHotelDailyRate, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTxtBedroomsNumber)
                             .addComponent(jBtnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -287,7 +287,7 @@ public class JFAddHotel extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTxtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -358,12 +358,12 @@ public class JFAddHotel extends javax.swing.JFrame {
         {
             if(h.addHotel(h, user.getUser_id()))
             {
-                Adress a = new Adress();
-                a.setAdress(jTxtAdress.getText());
+                Address a = new Address();
+                a.setAddress(jTxtAddress.getText());
                 a.setCity(((ComboMultiData)jComboCities.getSelectedItem()).getValue());
-                a.setAdress_type("H");
+                a.setAddress_type("H");
 
-                if(a.addAdress(a, h.getCnpj()))
+                if(a.addAddress(a, h.getCnpj()))
                 {
                     JOptionPane.showMessageDialog(null, "Registro realizado com sucesso!");
                     this.dispose();
@@ -480,7 +480,7 @@ public class JFAddHotel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLblPhotoQuantity;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JTextField jTxtAdress;
+    private javax.swing.JTextField jTxtAddress;
     private java.awt.TextArea jTxtAreaDrescription;
     private javax.swing.JTextField jTxtBedroomsNumber;
     private javax.swing.JTextField jTxtCNPJ;

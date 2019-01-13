@@ -65,6 +65,7 @@ public class JFHotelImages extends javax.swing.JFrame {
         jBtnSave = new javax.swing.JButton();
         jLblImage = new javax.swing.JLabel();
         jBtnRemoveImage = new javax.swing.JButton();
+        jBtnAddNewImages = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -88,6 +89,13 @@ public class JFHotelImages extends javax.swing.JFrame {
         jLblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jBtnRemoveImage.setText("Remover esta imagem");
+        jBtnRemoveImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRemoveImageActionPerformed(evt);
+            }
+        });
+
+        jBtnAddNewImages.setText("Adicionar novas imagens");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,7 +108,8 @@ public class JFHotelImages extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                     .addComponent(jLblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtnRemoveImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtnRemoveImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtnAddNewImages, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLblNext)
                 .addContainerGap())
@@ -114,6 +123,8 @@ public class JFHotelImages extends javax.swing.JFrame {
                         .addComponent(jLblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnRemoveImage)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnAddNewImages)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtnSave))
                     .addComponent(jLblPrevious, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -147,6 +158,10 @@ public class JFHotelImages extends javax.swing.JFrame {
             display_hotel_images();
         }
     }//GEN-LAST:event_jLblNextMouseClicked
+
+    private void jBtnRemoveImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRemoveImageActionPerformed
+        
+    }//GEN-LAST:event_jBtnRemoveImageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,6 +199,7 @@ public class JFHotelImages extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnAddNewImages;
     private javax.swing.JButton jBtnRemoveImage;
     private javax.swing.JButton jBtnSave;
     private javax.swing.JLabel jLblImage;

@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Controller.Adress;
+import Controller.Address;
 import Controller.CPFNotValidException;
 import Controller.ComboMultiData;
 import Controller.User;
@@ -31,8 +31,8 @@ public class JFRegister extends javax.swing.JFrame
     public void fulfillComponents(String type) throws SQLException
     {
         Vector <ComboMultiData> v = new Vector();
-        Adress adress = new Adress();
-        v = adress.list(type);
+        Address a = new Address();
+        v = a.list(type);
         DefaultComboBoxModel model = new DefaultComboBoxModel(v);
         switch(type)
         {
@@ -51,8 +51,8 @@ public class JFRegister extends javax.swing.JFrame
     public void fulfillComponents(String type, int index) throws SQLException
     {
         Vector <ComboMultiData> v = new Vector();
-        Adress adress = new Adress();
-        v = adress.list(type, index);
+        Address address = new Address();
+        v = address.list(type, index);
         DefaultComboBoxModel model = new DefaultComboBoxModel(v);
         switch(type)
         {
@@ -74,7 +74,7 @@ public class JFRegister extends javax.swing.JFrame
         jTxtPassword.setText("");
         jTxtName.setText("");
         jTxtAge.setText("");
-        jTxtAdress.setText("");
+        jTxtAddress.setText("");
         jComboCountries.setSelectedIndex(0);
         jComboStates.setSelectedIndex(0);
         jComboCities.setSelectedIndex(0);
@@ -95,12 +95,12 @@ public class JFRegister extends javax.swing.JFrame
         
         if(user.register(user))
         {
-            Adress a = new Adress();
-            a.setAdress(jTxtAdress.getText());
+            Address a = new Address();
+            a.setAddress(jTxtAddress.getText());
             a.setCity(((ComboMultiData)jComboCities.getSelectedItem()).getValue());
-            a.setAdress_type("U");
+            a.setAddress_type("U");
             
-            if(a.addAdress(a, user.getCpf()))
+            if(a.addAddress(a, user.getCpf()))
             {
                 JOptionPane.showMessageDialog(null, "Registro realizado com sucesso!");
                 this.dispose();
@@ -136,7 +136,7 @@ public class JFRegister extends javax.swing.JFrame
         jTxtCPF = new javax.swing.JTextField();
         jTxtPassword = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
-        jTxtAdress = new javax.swing.JTextField();
+        jTxtAddress = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jComboCountries = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -245,7 +245,7 @@ public class JFRegister extends javax.swing.JFrame
                             .addComponent(jComboCities, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboStates, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboCountries, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTxtAdress)
+                            .addComponent(jTxtAddress)
                             .addComponent(jBtnClean, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jBtnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
@@ -271,7 +271,7 @@ public class JFRegister extends javax.swing.JFrame
                     .addComponent(jTxtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -401,7 +401,7 @@ public class JFRegister extends javax.swing.JFrame
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jTxtAdress;
+    private javax.swing.JTextField jTxtAddress;
     private javax.swing.JTextField jTxtAge;
     private javax.swing.JTextField jTxtCPF;
     private javax.swing.JTextField jTxtName;

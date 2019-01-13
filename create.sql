@@ -5,7 +5,7 @@
 # Project name:                                                          #
 # Author:                                                                #
 # Script type:           Database creation script                        #
-# Created on:            2019-01-05 16:49                                #
+# Created on:            2019-01-13 21:05                                #
 # ---------------------------------------------------------------------- #
 
 
@@ -39,6 +39,7 @@ CREATE TABLE `hotels` (
     `hotel_description` VARCHAR(1000),
     `bedrooms_number` INTEGER,
     `add_date` DATETIME,
+    `last_updated` DATETIME,
     `user_id` INTEGER NOT NULL,
     CONSTRAINT `PK_hotels` PRIMARY KEY (`hotel_id`)
 );
@@ -70,17 +71,17 @@ CREATE TABLE `comments` (
 );
 
 # ---------------------------------------------------------------------- #
-# Add table "adresses"                                                   #
+# Add table "addresses"                                                  #
 # ---------------------------------------------------------------------- #
 
-CREATE TABLE `adresses` (
-    `adress_id` INTEGER NOT NULL AUTO_INCREMENT,
+CREATE TABLE `addresses` (
+    `address_id` INTEGER NOT NULL AUTO_INCREMENT,
     `city_id` INTEGER NOT NULL,
-    `adress` VARCHAR(100),
-    `adress_type` CHAR(1),
+    `address` VARCHAR(100),
+    `address_type` CHAR(1),
     `user_id` INTEGER,
     `hotel_id` INTEGER,
-    CONSTRAINT `PK_adresses` PRIMARY KEY (`adress_id`)
+    CONSTRAINT `PK_addresses` PRIMARY KEY (`address_id`)
 );
 
 # ---------------------------------------------------------------------- #
@@ -133,13 +134,13 @@ ALTER TABLE `comments` ADD CONSTRAINT `hotels_comments`
 ALTER TABLE `comments` ADD CONSTRAINT `users_comments` 
     FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
-ALTER TABLE `adresses` ADD CONSTRAINT `cities_adresses` 
+ALTER TABLE `addresses` ADD CONSTRAINT `cities_addresses` 
     FOREIGN KEY (`city_id`) REFERENCES `cities` (`city_id`);
 
-ALTER TABLE `adresses` ADD CONSTRAINT `users_adresses` 
+ALTER TABLE `addresses` ADD CONSTRAINT `users_addresses` 
     FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
-ALTER TABLE `adresses` ADD CONSTRAINT `hotels_adresses` 
+ALTER TABLE `addresses` ADD CONSTRAINT `hotels_addresses` 
     FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`hotel_id`);
 
 ALTER TABLE `cities` ADD CONSTRAINT `states_cities` 

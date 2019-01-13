@@ -5,7 +5,7 @@
 # Project name:                                                          #
 # Author:                                                                #
 # Script type:           Database drop script                            #
-# Created on:            2019-01-05 16:49                                #
+# Created on:            2019-01-13 21:05                                #
 # ---------------------------------------------------------------------- #
 
 
@@ -21,31 +21,31 @@ ALTER TABLE `comments` DROP FOREIGN KEY `hotels_comments`;
 
 ALTER TABLE `comments` DROP FOREIGN KEY `users_comments`;
 
-ALTER TABLE `adresses` DROP FOREIGN KEY `cities_adresses`;
+ALTER TABLE `addresses` DROP FOREIGN KEY `cities_addresses`;
 
-ALTER TABLE `adresses` DROP FOREIGN KEY `users_adresses`;
+ALTER TABLE `addresses` DROP FOREIGN KEY `users_addresses`;
 
-ALTER TABLE `adresses` DROP FOREIGN KEY `hotels_adresses`;
+ALTER TABLE `addresses` DROP FOREIGN KEY `hotels_addresses`;
 
 ALTER TABLE `cities` DROP FOREIGN KEY `states_cities`;
 
 ALTER TABLE `states` DROP FOREIGN KEY `countries_states`;
 
 # ---------------------------------------------------------------------- #
-# Drop table "adresses"                                                  #
+# Drop table "addresses"                                                 #
 # ---------------------------------------------------------------------- #
 
 # Remove autoinc for PK drop #
 
-ALTER TABLE `adresses` MODIFY `adress_id` INTEGER NOT NULL;
+ALTER TABLE `addresses` MODIFY `address_id` INTEGER NOT NULL;
 
 # Drop constraints #
 
-ALTER TABLE `adresses` DROP PRIMARY KEY;
+ALTER TABLE `addresses` DROP PRIMARY KEY;
 
 # Drop table #
 
-DROP TABLE `adresses`;
+DROP TABLE `addresses`;
 
 # ---------------------------------------------------------------------- #
 # Drop table "cities"                                                    #

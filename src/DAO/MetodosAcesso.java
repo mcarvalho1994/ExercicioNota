@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Controller.Adress;
+import Controller.Address;
 import Controller.ComboMultiData;
 import Controller.Hotel;
 import Controller.User;
@@ -231,25 +231,25 @@ public class MetodosAcesso
         }       
     }
     
-    // 5 - Add Adress
-    public boolean addAdress(Adress a, String doc) throws SQLException
+    // 5 - Add Address
+    public boolean addAddress(Address a, String doc) throws SQLException
     {
         int id = 0;
         Connection conn = new MySQLConnection().getMySQLConnection();
-        String sql_add_adress_user = "INSERT INTO adresses(city_id, adress, adress_type, user_id) VALUES (?, ?, ?, ?)";
-        String sql_add_adress_hotel = "INSERT INTO adresses(city_id, adress, adress_type, hotel_id) VALUES (?, ?, ?, ?)";
+        String sql_add_address_user = "INSERT INTO addresses(city_id, address, address_type, user_id) VALUES (?, ?, ?, ?)";
+        String sql_add_address_hotel = "INSERT INTO addresses(city_id, address, address_type, hotel_id) VALUES (?, ?, ?, ?)";
         
         try
         {
             PreparedStatement stmt = null;
-            if(a.getAdress_type().equals("U"))
+            if(a.getAddress_type().equals("U"))
             {
                 id = returnId(doc, "U");
 
-                stmt = conn.prepareStatement(sql_add_adress_user);
+                stmt = conn.prepareStatement(sql_add_address_user);
                 stmt.setInt(1, a.getCity());
-                stmt.setString(2, a.getAdress());
-                stmt.setString(3, a.getAdress_type());
+                stmt.setString(2, a.getAddress());
+                stmt.setString(3, a.getAddress_type());
                 stmt.setInt(4, id);
 
                 stmt.execute();
@@ -258,10 +258,10 @@ public class MetodosAcesso
             {
                 id = returnId(doc, "H");
 
-                stmt = conn.prepareStatement(sql_add_adress_hotel);
+                stmt = conn.prepareStatement(sql_add_address_hotel);
                 stmt.setInt(1, a.getCity());
-                stmt.setString(2, a.getAdress());
-                stmt.setString(3, a.getAdress_type());
+                stmt.setString(2, a.getAddress());
+                stmt.setString(3, a.getAddress_type());
                 stmt.setInt(4, id);
 
                 stmt.execute();
@@ -445,33 +445,33 @@ public class MetodosAcesso
         return v;        
     }
     
-    // 10 - Load Adress
-    public  Vector<Adress> load_adress(int id, String adress_type) throws SQLException
+    // 10 - Load Address
+    public  Vector<Address> load_address(int id, String address_type) throws SQLException
     {
-        Vector<Adress> va = new Vector<Adress>();
+        Vector<Address> va = new Vector<Address>();
         Connection conn = MySQLConnection.getMySQLConnection();
         String field = "";
         String sql = "";
         
-        switch(adress_type)
+        switch(address_type)
         {
             case "H" :
-                sql =   "select a.adress, a.city_id, s.state_id, c.country_id from adresses a \n" +
+                sql =   "select a.address, a.city_id, s.state_id, c.country_id from addresses a \n" +
                         "inner join hotels h on a.hotel_id = h.hotel_id\n" +
                         "inner join users u on h.user_id = u.user_id\n" +
                         "inner join cities ct on a.city_id = ct.city_id\n" +
                         "inner join states s on ct.state_id = s.state_id\n" +
                         "inner join countries c on s.country_id = c.country_id\n" +
-                        "where u.user_id = ?";
+                        "where u.user_id = ? and D_E_L_E_T_ IS NULL";
                 break;
             case "U" :
                 field = "user_id";
-                sql = "SELECT a.adress, ct.city_id, s.state_id,"
-                + " cn.country_id FROM adresses a"
+                sql = "SELECT a.address, ct.city_id, s.state_id,"
+                + " cn.country_id FROM addresses a"
                 + " INNER JOIN cities ct ON a.city_id = ct.city_id"
                 + " INNER JOIN states s ON ct.state_id = s.state_id"
                 + " INNER JOIN countries cn ON s.country_id = cn.country_id"
-                + " WHERE " + field + " = ?";
+                + " WHERE " + field + " = ? and D_E_L_E_T_ IS NULL";
                 break;
         }
         
@@ -482,8 +482,8 @@ public class MetodosAcesso
             ResultSet rs = stmt.executeQuery();
             while(rs.next())
             {
-                Adress a = new Adress();
-                a.setAdress(rs.getString("adress"));
+                Address a = new Address();
+                a.setAddress(rs.getString("address"));
                 a.setCountry(rs.getInt("country_id"));
                 a.setState(rs.getInt("state_id"));
                 a.setCity(rs.getInt("city_id"));
@@ -582,5 +582,11 @@ public class MetodosAcesso
             }
             return false;
         }      
+    }
+    
+    // 13 - Remove Hotel Image
+    public boolean removeHotelImage(String url)
+    {
+        return true;
     }
 }

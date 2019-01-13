@@ -5,7 +5,7 @@
 <PROJECTSETTINGS>
 <COMMONSETTINGS>
 <PROJECTFILENAME>C:\Users\Hélio\Desktop\Marcos\Exercícios\Exercícios\ExercicioNota\DER.dez</PROJECTFILENAME>
-<MODIFIED>2019-01-06</MODIFIED>
+<MODIFIED>2019-01-13</MODIFIED>
 <CREATED>2018-12-22</CREATED>
 <CREATED2></CREATED2>
 <PROJECTNAME></PROJECTNAME>
@@ -725,7 +725,7 @@
 </ATTRIBUTES>
 </ENT>
 <ENT>
-<NAME>adresses</NAME>
+<NAME>addresses</NAME>
 <ID>16</ID>
 <POSNR>0</POSNR>
 <SCHEMA></SCHEMA>
@@ -736,7 +736,7 @@
 <TRGLASTID>1</TRGLASTID>
 <CONLASTID>1</CONLASTID>
 <PKCON>
-<NAME>PK_adresses</NAME>
+<NAME>PK_addresses</NAME>
 <NAMETEMPLATE>PK_%table%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -751,7 +751,7 @@
 </PKCON>
 <ATTRIBUTES>
 <ATTR>
-<NAME>adress_id</NAME>
+<NAME>address_id</NAME>
 <ID>2</ID>
 <POSNR>0</POSNR>
 <SCHEMA></SCHEMA>
@@ -810,7 +810,7 @@
 </NNCON>
 </ATTR>
 <ATTR>
-<NAME>adress</NAME>
+<NAME>address</NAME>
 <ID>3</ID>
 <POSNR>0</POSNR>
 <SCHEMA></SCHEMA>
@@ -825,7 +825,7 @@
 </DT>
 </ATTR>
 <ATTR>
-<NAME>adress_type</NAME>
+<NAME>address_type</NAME>
 <ID>4</ID>
 <POSNR>0</POSNR>
 <SCHEMA></SCHEMA>
@@ -1388,7 +1388,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>cities_adresses</NAME>
+<NAME>cities_addresses</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>22</ID>
 <POSNR>0</POSNR>
@@ -1403,7 +1403,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>cities_adresses</NAME>
+<NAME>cities_addresses</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1430,7 +1430,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>users_adresses</NAME>
+<NAME>users_addresses</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>23</ID>
 <POSNR>0</POSNR>
@@ -1445,7 +1445,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>users_adresses</NAME>
+<NAME>users_addresses</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1472,7 +1472,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>hotels_adresses</NAME>
+<NAME>hotels_addresses</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>24</ID>
 <POSNR>0</POSNR>
@@ -1487,7 +1487,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>hotels_adresses</NAME>
+<NAME>hotels_addresses</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1667,7 +1667,7 @@
 <ENTC>
 <ID>16</ID>
 <DIAGRAMID>1</DIAGRAMID>
-<W>89</W>
+<W>95</W>
 <H>123</H>
 <L>386</L>
 <T>128</T>
@@ -1889,7 +1889,7 @@
 <Y>190</Y>
 </POINT>
 <POINT>
-<X>475</X>
+<X>481</X>
 <Y>190</Y>
 </POINT>
 </POINTS>
@@ -1913,11 +1913,11 @@
 <Y>293</Y>
 </POINT>
 <POINT>
-<X>430</X>
+<X>434</X>
 <Y>293</Y>
 </POINT>
 <POINT>
-<X>430</X>
+<X>434</X>
 <Y>251</Y>
 </POINT>
 </POINTS>
@@ -1941,11 +1941,11 @@
 <Y>298</Y>
 </POINT>
 <POINT>
-<X>430</X>
+<X>434</X>
 <Y>298</Y>
 </POINT>
 <POINT>
-<X>430</X>
+<X>434</X>
 <Y>251</Y>
 </POINT>
 </POINTS>

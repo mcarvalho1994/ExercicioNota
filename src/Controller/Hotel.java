@@ -217,4 +217,11 @@ public class Hotel
         }
         return true;
     }    
+    
+    public boolean removeHotelImage(String url)
+    {
+        MetodosAcesso mtd = new MetodosAcesso();
+        
+        return true;
+    }
 }

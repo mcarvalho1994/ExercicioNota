@@ -13,24 +13,24 @@ import java.util.Vector;
  *
  * @author Marcos
  */
-public class Adress
+public class Address
 {
-    private String adress;
+    private String address;
     private int city;
     private int state;
     private int country;
-    private String adress_type;
+    private String address_type;
     
-    public boolean addAdress(Adress adress, String document) throws SQLException
+    public boolean addAddress(Address address, String document) throws SQLException
     {
         MetodosAcesso mtd = new MetodosAcesso();
-        if(mtd.addAdress(adress, document))
+        if(mtd.addAddress(address, document))
             return true;
         else
             return false;
     }
     
-    public void manageAdress(Adress adress)
+    public void manageAddress(Address address)
     {
         
     }
@@ -56,17 +56,17 @@ public class Adress
     }  
 
     /**
-     * @return the adress
+     * @return the address
      */
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
     /**
-     * @param adress the adress to set
+     * @param address the address to set
      */
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     /**
@@ -112,24 +112,24 @@ public class Adress
     }
 
     /**
-     * @return the adress_type
+     * @return the address_type
      */
-    public String getAdress_type() {
-        return adress_type;
+    public String getAddress_type() {
+        return address_type;
     }
 
     /**
-     * @param adress_type the adress_type to set
+     * @param address_type the address_type to set
      */
-    public void setAdress_type(String adress_type) {
-        this.adress_type = adress_type;
+    public void setAddress_type(String address_type) {
+        this.address_type = address_type;
     }
     
-    public Vector<Adress> loadAdress(String adress_type, int id) throws SQLException
+    public Vector<Address> loadAddress(String address_type, int id) throws SQLException
     {
-        Vector<Adress> va = new Vector<Adress>();
+        Vector<Address> va = new Vector<Address>();
         MetodosAcesso mtd = new MetodosAcesso();
-        va = mtd.load_adress(id, adress_type);
+        va = mtd.load_address(id, address_type);
         return va;
     }
     

@@ -32,6 +32,7 @@
                   <Component id="jBtnSave" pref="369" max="32767" attributes="0"/>
                   <Component id="jLblImage" max="32767" attributes="0"/>
                   <Component id="jBtnRemoveImage" max="32767" attributes="0"/>
+                  <Component id="jBtnAddNewImages" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLblNext" min="-2" max="-2" attributes="0"/>
@@ -48,6 +49,8 @@
                       <Component id="jLblImage" min="-2" pref="275" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jBtnRemoveImage" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jBtnAddNewImages" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jBtnSave" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -89,6 +92,14 @@
     <Component class="javax.swing.JButton" name="jBtnRemoveImage">
       <Properties>
         <Property name="text" type="java.lang.String" value="Remover esta imagem"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnRemoveImageActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtnAddNewImages">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Adicionar novas imagens"/>
       </Properties>
     </Component>
   </SubComponents>

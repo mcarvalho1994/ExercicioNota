@@ -53,7 +53,7 @@
                           <Component id="jComboCities" alignment="1" max="32767" attributes="0"/>
                           <Component id="jComboStates" alignment="1" max="32767" attributes="0"/>
                           <Component id="jComboCountries" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jTxtAdress" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jTxtAddress" alignment="1" max="32767" attributes="0"/>
                           <Component id="jTxtHotelDailyRate" alignment="1" max="32767" attributes="0"/>
                           <Component id="jTxtBedroomsNumber" max="32767" attributes="0"/>
                           <Component id="jBtnExit" max="32767" attributes="0"/>
@@ -111,7 +111,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTxtAdress" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTxtAddress" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -224,10 +224,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Endereco"/>
+        <Property name="text" type="java.lang.String" value="Endere&#xe7;o"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTxtAdress">
+    <Component class="javax.swing.JTextField" name="jTxtAddress">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>

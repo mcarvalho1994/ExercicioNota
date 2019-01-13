@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Controller.Adress;
+import Controller.Address;
 import Controller.CNPJNotValidException;
 import Controller.CharacterLimitException;
 import Controller.ComboMultiData;
@@ -37,8 +37,8 @@ public class JFManageHotel extends javax.swing.JFrame {
     private Set<File> photos = new HashSet();
     private int vIndex = 0;
     private Vector<Hotel> vh = new Vector<Hotel>();
-    private Vector<Adress> va = new Vector<Adress>();
-    private Adress a = new Adress();
+    private Vector<Address> va = new Vector<Address>();
+    private Address a = new Address();
     
     
     public void load_user(User user) throws SQLException
@@ -50,8 +50,8 @@ public class JFManageHotel extends javax.swing.JFrame {
     public void fulfillComponents(String type) throws SQLException
     {
         Vector <ComboMultiData> v = new Vector();
-        Adress adress = new Adress();
-        v = adress.list(type);
+        Address address = new Address();
+        v = address.list(type);
         DefaultComboBoxModel model = new DefaultComboBoxModel(v);
         switch(type)
         {
@@ -70,8 +70,8 @@ public class JFManageHotel extends javax.swing.JFrame {
     public void fulfillComponents(String type, int index) throws SQLException
     {
         Vector <ComboMultiData> v = new Vector();
-        Adress adress = new Adress();
-        v = adress.list(type, index);
+        Address address = new Address();
+        v = address.list(type, index);
         DefaultComboBoxModel model = new DefaultComboBoxModel(v);
         switch(type)
         {
@@ -95,7 +95,7 @@ public class JFManageHotel extends javax.swing.JFrame {
         jTxtBedroomsNumber.setText("");
         jTxtHotelDailyRate.setText("");
         jTxtHotelName.setText("");
-        jTxtAdress.setText("");
+        jTxtAddress.setText("");
         jComboCountries.setSelectedIndex(0);
         jComboStates.setSelectedIndex(0);
         jComboCities.setSelectedIndex(0);
@@ -104,7 +104,7 @@ public class JFManageHotel extends javax.swing.JFrame {
     public void load_user_hotels() throws SQLException
     {      
         vh = this.user.load_user_hotels();
-        va = a.loadAdress("H", user.getUser_id());
+        va = a.loadAddress("H", user.getUser_id());
         display_user_hotel();
         
     }
@@ -118,7 +118,7 @@ public class JFManageHotel extends javax.swing.JFrame {
         jTxtAreaDrescription.setText(vh.get(vIndex).getHotel_description());
         jTxtBedroomsNumber.setText(String.valueOf(vh.get(vIndex).getBedrooms_number()));
         jTxtHotelDailyRate.setText(String.valueOf(vh.get(vIndex).getHotel_daily_rate()).replace(".", ","));
-        jTxtAdress.setText(va.get(vIndex).getAdress());
+        jTxtAddress.setText(va.get(vIndex).getAddress());
         jComboCountries.setSelectedIndex(va.get(vIndex).getCountry() - 1);
         jComboStates.setSelectedIndex(va.get(vIndex).getState() - 1);
         city_index = a.getCityIndex(va.get(vIndex).getState(), va.get(vIndex).getCity());
@@ -151,7 +151,7 @@ public class JFManageHotel extends javax.swing.JFrame {
         jTxtBedroomsNumber = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTxtHotelDailyRate = new javax.swing.JTextField();
-        jTxtAdress = new javax.swing.JTextField();
+        jTxtAddress = new javax.swing.JTextField();
         jComboCountries = new javax.swing.JComboBox<>();
         jComboStates = new javax.swing.JComboBox<>();
         jComboCities = new javax.swing.JComboBox<>();
@@ -242,7 +242,7 @@ public class JFManageHotel extends javax.swing.JFrame {
 
         jTxtAreaDrescription.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        jLabel10.setText("Endereco");
+        jLabel10.setText("Endereço");
 
         jBtnAlterImages.setText("Alterar/ Adicionar Imagens");
         jBtnAlterImages.addActionListener(new java.awt.event.ActionListener() {
@@ -308,7 +308,7 @@ public class JFManageHotel extends javax.swing.JFrame {
                             .addComponent(jComboCities, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboStates, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboCountries, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTxtAdress, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTxtAddress, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTxtHotelDailyRate, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTxtBedroomsNumber, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -350,7 +350,7 @@ public class JFManageHotel extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -453,11 +453,11 @@ public class JFManageHotel extends javax.swing.JFrame {
         {
             if(vh.get(vIndex).manageHotel(vh.get(vIndex)))
             {
-                a.setAdress(jTxtAdress.getText());
+                a.setAddress(jTxtAddress.getText());
                 a.setCity(((ComboMultiData)jComboCities.getSelectedItem()).getValue());
-                a.setAdress_type("H");
+                a.setAddress_type("H");
 
-                /*if(a.manageAdress(a, h.getCnpj()))
+                /*if(a.manageAddress(a, h.getCnpj()))
                 {
                     JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!");
                     this.dispose();
@@ -553,7 +553,7 @@ public class JFManageHotel extends javax.swing.JFrame {
     private javax.swing.JLabel jLblNext;
     private javax.swing.JLabel jLblPhotoQuantity;
     private javax.swing.JLabel jLblPrevious;
-    private javax.swing.JTextField jTxtAdress;
+    private javax.swing.JTextField jTxtAddress;
     private java.awt.TextArea jTxtAreaDrescription;
     private javax.swing.JTextField jTxtBedroomsNumber;
     private javax.swing.JTextField jTxtCNPJ;
