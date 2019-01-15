@@ -33,6 +33,8 @@
                   <Component id="jLblImage" max="32767" attributes="0"/>
                   <Component id="jBtnRemoveImage" max="32767" attributes="0"/>
                   <Component id="jBtnAddNewImages" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLblPath" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLblPhotoQuantity" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLblNext" min="-2" max="-2" attributes="0"/>
@@ -45,14 +47,19 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jLblImage" min="-2" pref="275" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLblPath" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jBtnRemoveImage" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jBtnAddNewImages" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLblPhotoQuantity" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jBtnSave" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="42" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jLblPrevious" alignment="0" max="32767" attributes="0"/>
                   <Component id="jLblNext" alignment="0" max="32767" attributes="0"/>
@@ -83,6 +90,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Salvar todas as imagens"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnSaveActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLblImage">
       <Properties>
@@ -100,6 +110,19 @@
     <Component class="javax.swing.JButton" name="jBtnAddNewImages">
       <Properties>
         <Property name="text" type="java.lang.String" value="Adicionar novas imagens"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnAddNewImagesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLblPath">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLblPhotoQuantity">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
     </Component>
   </SubComponents>

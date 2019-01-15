@@ -36,7 +36,7 @@ public class JFAddHotel extends javax.swing.JFrame {
      * Creates new form JFAddHotel
      */
     private User user = null;
-    Set<File> photos = new HashSet();
+    private Set<File> photos = new HashSet();
     
     public void load_user(User user)
     {

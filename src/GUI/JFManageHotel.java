@@ -123,8 +123,12 @@ public class JFManageHotel extends javax.swing.JFrame {
         jComboStates.setSelectedIndex(va.get(vIndex).getState() - 1);
         city_index = a.getCityIndex(va.get(vIndex).getState(), va.get(vIndex).getCity());
         jComboCities.setSelectedIndex(city_index - 1);
-        jLblPhotoQuantity.setText(String.valueOf(vh.get(vIndex).getHotel_photos().size()));
-        
+        jLblPhotoQuantity.setText(String.valueOf(vh.get(vIndex).getHotel_photos().size()));  
+    }
+    
+    public void load_photo_quantity(int photo_quantity)
+    {
+        jLblPhotoQuantity.setText(String.valueOf(photo_quantity));
     }
     
     public JFManageHotel() throws SQLException {
@@ -444,7 +448,7 @@ public class JFManageHotel extends javax.swing.JFrame {
 
     private void jBtnAlterImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterImagesActionPerformed
         JFHotelImages jfhi = new JFHotelImages();
-        jfhi.load_informations(vh.get(vIndex));
+        jfhi.load_informations(vh.get(vIndex), this);
         jfhi.show();
     }//GEN-LAST:event_jBtnAlterImagesActionPerformed
 

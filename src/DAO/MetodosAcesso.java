@@ -396,7 +396,7 @@ public class MetodosAcesso
         Connection conn = MySQLConnection.getMySQLConnection();
         Vector<Hotel> v = new Vector<Hotel>();
         String sql_hotels = "SELECT * FROM hotels WHERE user_id = ? ORDER BY hotel_id";
-        String sql_photos = "SELECT * FROM hotel_photos WHERE hotel_id = ?";
+        String sql_photos = "SELECT * FROM hotel_photos WHERE hotel_id = ? AND D_E_L_E_T_ IS NULL";
         
         try
         {
@@ -462,7 +462,7 @@ public class MetodosAcesso
                         "inner join cities ct on a.city_id = ct.city_id\n" +
                         "inner join states s on ct.state_id = s.state_id\n" +
                         "inner join countries c on s.country_id = c.country_id\n" +
-                        "where u.user_id = ? and D_E_L_E_T_ IS NULL";
+                        "where u.user_id = ?";
                 break;
             case "U" :
                 field = "user_id";
@@ -471,7 +471,7 @@ public class MetodosAcesso
                 + " INNER JOIN cities ct ON a.city_id = ct.city_id"
                 + " INNER JOIN states s ON ct.state_id = s.state_id"
                 + " INNER JOIN countries cn ON s.country_id = cn.country_id"
-                + " WHERE " + field + " = ? and D_E_L_E_T_ IS NULL";
+                + " WHERE " + field + " = ?";
                 break;
         }
         
@@ -585,8 +585,34 @@ public class MetodosAcesso
     }
     
     // 13 - Remove Hotel Image
-    public boolean removeHotelImage(String url)
+    public boolean removeHotelImage(Vector<String> url) throws SQLException
     {
-        return true;
+        Connection conn = MySQLConnection.getMySQLConnection();
+        String sql = "UPDATE hotel_photos SET D_E_L_E_T_ = '*' WHERE photo_path = ?";
+        try
+        {
+            for(int i = 0; i < url.size(); i++)
+            {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, url.get(i));
+            }
+            return true;
+        }
+        catch(SQLException e)
+        {
+            Calendar c = Calendar.getInstance();          
+            
+            try
+            {
+                PrintWriter out = new PrintWriter(new FileWriter("error.log"));
+                out.println(c.getTime() + " - " + e.getMessage());
+                out.close();
+            }
+            catch(IOException ioe)
+            {
+                System.out.println("Erro durante gravação: " + ioe.getMessage());
+            }
+            return false;
+        }  
     }
 }

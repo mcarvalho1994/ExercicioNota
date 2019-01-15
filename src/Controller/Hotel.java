@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /**
@@ -218,10 +219,9 @@ public class Hotel
         return true;
     }    
     
-    public boolean removeHotelImage(String url)
+    public boolean removeHotelImage(Vector<String> url) throws SQLException
     {
         MetodosAcesso mtd = new MetodosAcesso();
-        
-        return true;
+        return mtd.removeHotelImage(url);
     }
 }

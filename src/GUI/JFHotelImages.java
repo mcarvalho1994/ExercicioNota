@@ -7,13 +7,18 @@ package GUI;
 
 import Controller.Hotel;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -28,10 +33,14 @@ public class JFHotelImages extends javax.swing.JFrame {
     private Hotel h;
     private Vector<File> vPath = new Vector<File>();
     private Set<File> hotel_photos;
+    private Vector<String> deleted_photos = new Vector<String>();
+    private Set<File> added_photos = new HashSet();
+    private JFManageHotel jfmh;
     
-    public void load_informations(Hotel h)
+    public void load_informations(Hotel h, JFManageHotel jfmh)
     {
         this.h = h;
+        this.jfmh = jfmh;
         this.setTitle("Guia Hoteleiro - Imagens: " + this.h.getHotel_name());
         hotel_photos = h.getHotel_photos();
         for(File path : hotel_photos)
@@ -45,6 +54,7 @@ public class JFHotelImages extends javax.swing.JFrame {
     {
         ImageIcon icon = new ImageIcon(vPath.get(vIndex).getAbsolutePath());
         jLblImage.setIcon(icon);
+        jLblPath.setText(vPath.get(vIndex).getAbsolutePath());
     }
     
     public JFHotelImages() {
@@ -66,6 +76,8 @@ public class JFHotelImages extends javax.swing.JFrame {
         jLblImage = new javax.swing.JLabel();
         jBtnRemoveImage = new javax.swing.JButton();
         jBtnAddNewImages = new javax.swing.JButton();
+        jLblPath = new javax.swing.JLabel();
+        jLblPhotoQuantity = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -85,6 +97,11 @@ public class JFHotelImages extends javax.swing.JFrame {
         });
 
         jBtnSave.setText("Salvar todas as imagens");
+        jBtnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSaveActionPerformed(evt);
+            }
+        });
 
         jLblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -96,6 +113,15 @@ public class JFHotelImages extends javax.swing.JFrame {
         });
 
         jBtnAddNewImages.setText("Adicionar novas imagens");
+        jBtnAddNewImages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAddNewImagesActionPerformed(evt);
+            }
+        });
+
+        jLblPath.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLblPhotoQuantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,7 +135,9 @@ public class JFHotelImages extends javax.swing.JFrame {
                     .addComponent(jBtnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                     .addComponent(jLblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtnRemoveImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtnAddNewImages, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtnAddNewImages, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLblPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLblPhotoQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLblNext)
                 .addContainerGap())
@@ -122,11 +150,16 @@ public class JFHotelImages extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLblPath)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnRemoveImage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnAddNewImages)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtnSave))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLblPhotoQuantity)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnSave)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE))
                     .addComponent(jLblPrevious, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLblNext, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -148,7 +181,7 @@ public class JFHotelImages extends javax.swing.JFrame {
     }//GEN-LAST:event_jLblPreviousMouseClicked
 
     private void jLblNextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblNextMouseClicked
-        if(vIndex == hotel_photos.size() - 1)
+        if(vIndex == vPath.size() - 1)
         {
             JOptionPane.showMessageDialog(null, "Última Foto Cadastrada");
         }
@@ -160,8 +193,59 @@ public class JFHotelImages extends javax.swing.JFrame {
     }//GEN-LAST:event_jLblNextMouseClicked
 
     private void jBtnRemoveImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRemoveImageActionPerformed
-        
+        if(JOptionPane.showConfirmDialog(null, "Deseja excluir essa imagem?") == 0)
+        {
+            deleted_photos.add(vPath.get(vIndex).getAbsolutePath());
+            vPath.remove(vIndex);
+            JOptionPane.showMessageDialog(null, "Imagem removida com sucesso!");
+            if((vIndex < hotel_photos.size()) && vIndex != 0)
+            {
+                vIndex = vIndex - 1;
+            }
+            display_hotel_images();
+        }
     }//GEN-LAST:event_jBtnRemoveImageActionPerformed
+
+    private void jBtnAddNewImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddNewImagesActionPerformed
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        jfc.setMultiSelectionEnabled(true);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
+        jfc.setFileFilter(filter);
+        
+        int returnValue = jfc.showOpenDialog(null);
+        
+        if (returnValue == JFileChooser.APPROVE_OPTION)
+        {
+            File[] files = jfc.getSelectedFiles();
+            for(int i = 0; i < files.length; i++)
+            {
+                added_photos.add(files[i]);
+            }
+            
+            if(files.length == 1)
+                jLblPhotoQuantity.setText(String.valueOf(files.length) + " Nova Foto Selecionada");
+            else if(files.length > 1)
+                jLblPhotoQuantity.setText(String.valueOf(files.length) + " Novas Fotos Selecionadas");
+        }
+    }//GEN-LAST:event_jBtnAddNewImagesActionPerformed
+
+    private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
+        try
+        {
+            if(h.removeHotelImage(deleted_photos))
+            {
+                if(h.addHotelPhotos(added_photos, h.getHotel_id()))
+                {
+                    JOptionPane.showMessageDialog(null, "Imagens alteradas e/ou incluídas!");
+                    jfmh.load_photo_quantity(added_photos.size() + vPath.size());
+                }
+            }
+        }
+        catch (SQLException | IOException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_jBtnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,6 +288,8 @@ public class JFHotelImages extends javax.swing.JFrame {
     private javax.swing.JButton jBtnSave;
     private javax.swing.JLabel jLblImage;
     private javax.swing.JLabel jLblNext;
+    private javax.swing.JLabel jLblPath;
+    private javax.swing.JLabel jLblPhotoQuantity;
     private javax.swing.JLabel jLblPrevious;
     // End of variables declaration//GEN-END:variables
 }
