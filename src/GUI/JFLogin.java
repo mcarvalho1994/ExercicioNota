@@ -166,7 +166,7 @@ public class JFLogin extends javax.swing.JFrame {
             }
             catch (SQLException | IOException ex) 
             {
-                Logger.getLogger(JFLogin.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
     }//GEN-LAST:event_jBtnLoginActionPerformed
@@ -178,7 +178,7 @@ public class JFLogin extends javax.swing.JFrame {
         } 
         catch (SQLException ex)
         {
-            Logger.getLogger(JFLogin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         jfr.show();
     }//GEN-LAST:event_jLblRegisterMouseClicked

@@ -551,7 +551,7 @@ public class MetodosAcesso
     public boolean manageHotel(Hotel h) throws SQLException
     {
         Connection conn = MySQLConnection.getMySQLConnection();
-        String sql = "UPDATE HOTEL cnpj = ?, hotel_name = ?, hotel_daily_rate = ?,"
+        String sql = "UPDATE hotels SET cnpj = ?, hotel_name = ?, hotel_daily_rate = ?,"
                 + " hotel_description = ?, bedrooms_number = ?, last_updated = NOW() "
                 + " WHERE hotel_id = ?";
         try
@@ -563,8 +563,7 @@ public class MetodosAcesso
             stmt.setString(4, h.getHotel_description());
             stmt.setInt(5, h.getBedrooms_number());
             stmt.setInt(6, h.getHotel_id());
-            System.out.println(stmt);
-            return true;
+            return stmt.execute();
         }
         catch(SQLException e)
         {
@@ -585,7 +584,7 @@ public class MetodosAcesso
     }
     
     // 13 - Remove Hotel Image
-    public boolean removeHotelImage(Vector<String> url) throws SQLException
+    public boolean removeHotelImages(Vector<String> url) throws SQLException
     {
         Connection conn = MySQLConnection.getMySQLConnection();
         String sql = "UPDATE hotel_photos SET D_E_L_E_T_ = '*' WHERE photo_path = ?";
@@ -595,7 +594,49 @@ public class MetodosAcesso
             {
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, url.get(i));
+                stmt.execute();
             }
+            return true;
+        }
+        catch(SQLException e)
+        {
+            Calendar c = Calendar.getInstance();          
+            
+            try
+            {
+                PrintWriter out = new PrintWriter(new FileWriter("error.log"));
+                out.println(c.getTime() + " - " + e.getMessage());
+                out.close();
+            }
+            catch(IOException ioe)
+            {
+                System.out.println("Erro durante gravação: " + ioe.getMessage());
+            }
+            return false;
+        }  
+    }
+    // 14 - Manage Address
+    public boolean manageAddress(Address a, int id, String address_type) throws SQLException
+    {
+        String field = "";
+        switch(address_type)
+        {
+            case "U" : 
+                field = "user_id";
+                break;
+            case "H" : 
+                field = "hotel_id";
+        }
+        Connection conn = MySQLConnection.getMySQLConnection();
+        String sql = "UPDATE addresses SET address = ?, city_id = ? WHERE " + field + " = ?";
+        
+        try
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, a.getAddress());
+            stmt.setInt(2, a.getCity());
+            stmt.setInt(3, id);
+            stmt.execute();
             return true;
         }
         catch(SQLException e)

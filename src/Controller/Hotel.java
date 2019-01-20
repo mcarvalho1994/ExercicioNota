@@ -219,9 +219,9 @@ public class Hotel
         return true;
     }    
     
-    public boolean removeHotelImage(Vector<String> url) throws SQLException
+    public boolean removeHotelImages(Vector<String> url) throws SQLException
     {
         MetodosAcesso mtd = new MetodosAcesso();
-        return mtd.removeHotelImage(url);
+        return mtd.removeHotelImages(url);
     }
 }

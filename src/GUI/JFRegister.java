@@ -311,7 +311,7 @@ public class JFRegister extends javax.swing.JFrame
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(JFRegister.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jComboStatesItemStateChanged
 
@@ -323,7 +323,7 @@ public class JFRegister extends javax.swing.JFrame
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(JFRegister.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jComboCountriesItemStateChanged
 
@@ -342,7 +342,7 @@ public class JFRegister extends javax.swing.JFrame
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(JFRegister.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jBtnSaveActionPerformed
 

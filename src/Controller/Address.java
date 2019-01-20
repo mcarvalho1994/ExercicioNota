@@ -30,9 +30,10 @@ public class Address
             return false;
     }
     
-    public void manageAddress(Address address)
+    public boolean manageAddress(Address a, int id, String address_type) throws SQLException
     {
-        
+        MetodosAcesso mtd = new MetodosAcesso();
+        return mtd.manageAddress(a, id, address_type);
     }
     
     public Vector<ComboMultiData> list(String type) throws SQLException

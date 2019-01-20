@@ -39,6 +39,8 @@ public class JFManageHotel extends javax.swing.JFrame {
     private Vector<Hotel> vh = new Vector<Hotel>();
     private Vector<Address> va = new Vector<Address>();
     private Address a = new Address();
+    private Vector<String> deleted_photos = new Vector<String>();
+    private Set<File> added_photos = new HashSet();
     
     
     public void load_user(User user) throws SQLException
@@ -121,14 +123,17 @@ public class JFManageHotel extends javax.swing.JFrame {
         jTxtAddress.setText(va.get(vIndex).getAddress());
         jComboCountries.setSelectedIndex(va.get(vIndex).getCountry() - 1);
         jComboStates.setSelectedIndex(va.get(vIndex).getState() - 1);
-        city_index = a.getCityIndex(va.get(vIndex).getState(), va.get(vIndex).getCity());
+        city_index = va.get(vIndex).getCityIndex(va.get(vIndex).getState(), va.get(vIndex).getCity());
         jComboCities.setSelectedIndex(city_index - 1);
         jLblPhotoQuantity.setText(String.valueOf(vh.get(vIndex).getHotel_photos().size()));  
     }
     
-    public void load_photo_quantity(int photo_quantity)
+    public void load_photos_changes(Set<File> added_photos, Vector<String> deleted_photos)
     {
-        jLblPhotoQuantity.setText(String.valueOf(photo_quantity));
+        jLblPhotoQuantity.setText(String.valueOf(vh.get(vIndex).getHotel_photos().size() - deleted_photos.size() 
+                + added_photos.size()));
+        this.deleted_photos = deleted_photos;
+        this.added_photos = added_photos;
     }
     
     public JFManageHotel() throws SQLException {
@@ -398,7 +403,7 @@ public class JFManageHotel extends javax.swing.JFrame {
             }
             catch (SQLException ex)
             {
-                Logger.getLogger(JFManageHotel.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
     }//GEN-LAST:event_jLblNextMouseClicked
@@ -417,7 +422,7 @@ public class JFManageHotel extends javax.swing.JFrame {
             }
             catch (SQLException ex)
             {
-                Logger.getLogger(JFManageHotel.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
     }//GEN-LAST:event_jLblPreviousMouseClicked
@@ -430,7 +435,7 @@ public class JFManageHotel extends javax.swing.JFrame {
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(JFManageHotel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jComboStatesItemStateChanged
 
@@ -442,7 +447,7 @@ public class JFManageHotel extends javax.swing.JFrame {
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(JFManageHotel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jComboCountriesItemStateChanged
 
@@ -455,30 +460,49 @@ public class JFManageHotel extends javax.swing.JFrame {
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
         try
         {
+            //Fulfilling the Hotel Object
+            vh.get(vIndex).setCnpj(jTxtCNPJ.getText());
+            vh.get(vIndex).setHotel_name(jTxtHotelName.getText());
+            vh.get(vIndex).setHotel_description(jTxtAreaDrescription.getText());
+            if(jTxtBedroomsNumber.getText().isEmpty())
+                vh.get(vIndex).setBedrooms_number(0);
+            else
+                vh.get(vIndex).setBedrooms_number(Integer.parseInt(jTxtBedroomsNumber.getText()));
+            if(jTxtHotelDailyRate.getText().isEmpty())
+                vh.get(vIndex).setHotel_daily_rate(0.00);
+            else
+                vh.get(vIndex).setHotel_daily_rate(Double.parseDouble(jTxtHotelDailyRate.getText().replace(",", ".")));
+            
+            //Fulfilling the Address Object
+            va.get(vIndex).setAddress(jTxtAddress.getText());
+            va.get(vIndex).setCity(((ComboMultiData)jComboCities.getSelectedItem()).getValue());
+            va.get(vIndex).setAddress_type("H");
+            
+            //Saving at the database
             if(vh.get(vIndex).manageHotel(vh.get(vIndex)))
             {
-                a.setAddress(jTxtAddress.getText());
-                a.setCity(((ComboMultiData)jComboCities.getSelectedItem()).getValue());
-                a.setAddress_type("H");
-
-                /*if(a.manageAddress(a, h.getCnpj()))
+                if(va.get(vIndex).manageAddress(va.get(vIndex), vh.get(vIndex).getHotel_id(), "H"))
                 {
-                    JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!");
-                    this.dispose();
+                    if(vh.get(vIndex).removeHotelImages(deleted_photos))
+                    {
+                        if(vh.get(vIndex).addHotelPhotos(added_photos, vh.get(vIndex).getHotel_id()))
+                        {
+                            JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!");
+                            this.dispose();
+                        }
+                        else
+                            JOptionPane.showMessageDialog(null, "Alteração falhou!");
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "Alteração falhou!");
                 }
                 else
-                JOptionPane.showMessageDialog(null, "Alteração falhou!");*/
+                    JOptionPane.showMessageDialog(null, "Alteração falhou!");
             }
+            else
+                JOptionPane.showMessageDialog(null, "Alteração falhou!");
         }
-        catch (CNPJNotValidException ex)
-        {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        catch (CharacterLimitException ex)
-        {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        catch (SQLException ex)
+        catch (CNPJNotValidException | CharacterLimitException |SQLException | IOException ex)
         {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }

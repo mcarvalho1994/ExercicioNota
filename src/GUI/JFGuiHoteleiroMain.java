@@ -9,6 +9,7 @@ import Controller.User;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -58,10 +59,11 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
         jMenuAddHotel = new javax.swing.JMenuItem();
         jMenuAlterHotel = new javax.swing.JMenuItem();
         jMenuSearchHotel = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        JmenuLogOut = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Guia Hoteleiro - Home");
+        setResizable(false);
 
         jMenuHotel.setText("Hotel");
 
@@ -91,9 +93,14 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
 
         jMenuBar.add(jMenuHotel);
 
-        jMenu2.setText("Edit");
-        jMenu2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jMenuBar.add(jMenu2);
+        JmenuLogOut.setText("Logout");
+        JmenuLogOut.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        JmenuLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JmenuLogOutActionPerformed(evt);
+            }
+        });
+        jMenuBar.add(JmenuLogOut);
 
         setJMenuBar(jMenuBar);
 
@@ -111,7 +118,7 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLblUserName)
-                .addContainerGap(268, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,7 +133,7 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
             jfah.show();
         } catch (SQLException ex)
         {
-            Logger.getLogger(JFGuiHoteleiroMain.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         
     }//GEN-LAST:event_jMenuAddHotelActionPerformed
@@ -140,7 +147,7 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
             jfmh.show();
         } catch (SQLException ex)
         {
-            Logger.getLogger(JFGuiHoteleiroMain.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jMenuAlterHotelActionPerformed
 
@@ -148,6 +155,12 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
         JFSearchHotel jfsh = new JFSearchHotel();
         jfsh.show();
     }//GEN-LAST:event_jMenuSearchHotelActionPerformed
+
+    private void JmenuLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmenuLogOutActionPerformed
+        JFLogin jfl = new JFLogin();
+        this.dispose();
+        jfl.show();
+    }//GEN-LAST:event_JmenuLogOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,8 +198,8 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu JmenuLogOut;
     private javax.swing.JLabel jLblUserName;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuAddHotel;
     private javax.swing.JMenuItem jMenuAlterHotel;
     private javax.swing.JMenuBar jMenuBar;

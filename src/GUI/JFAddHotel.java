@@ -372,15 +372,7 @@ public class JFAddHotel extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Registro falhou!");
             }
         }
-        catch (CNPJNotValidException ex)
-        {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        catch (CharacterLimitException ex)
-        {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        catch (SQLException | IOException ex)
+        catch (CNPJNotValidException | CharacterLimitException |SQLException | IOException ex)
         {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -394,7 +386,7 @@ public class JFAddHotel extends javax.swing.JFrame {
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(JFRegister.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jComboStatesItemStateChanged
 
@@ -406,7 +398,7 @@ public class JFAddHotel extends javax.swing.JFrame {
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(JFRegister.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_jComboCountriesItemStateChanged
 
@@ -454,7 +446,7 @@ public class JFAddHotel extends javax.swing.JFrame {
                 }
                 catch (SQLException ex)
                 {
-                    Logger.getLogger(JFAddHotel.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });

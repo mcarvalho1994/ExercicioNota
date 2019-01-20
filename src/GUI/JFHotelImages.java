@@ -230,21 +230,8 @@ public class JFHotelImages extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnAddNewImagesActionPerformed
 
     private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
-        try
-        {
-            if(h.removeHotelImage(deleted_photos))
-            {
-                if(h.addHotelPhotos(added_photos, h.getHotel_id()))
-                {
-                    JOptionPane.showMessageDialog(null, "Imagens alteradas e/ou incluídas!");
-                    jfmh.load_photo_quantity(added_photos.size() + vPath.size());
-                }
-            }
-        }
-        catch (SQLException | IOException ex)
-        {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
+    jfmh.load_photos_changes(added_photos, deleted_photos);
+    this.dispose();
     }//GEN-LAST:event_jBtnSaveActionPerformed
 
     /**
