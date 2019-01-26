@@ -116,6 +116,7 @@ public class JFRegister extends javax.swing.JFrame
     public JFRegister() throws SQLException
     {
         initComponents();
+        this.setLocationRelativeTo(null);
         jComboCountries.removeAllItems();
         jComboStates.removeAllItems();
         jComboCities.removeAllItems();

@@ -99,6 +99,7 @@ public class JFAddHotel extends javax.swing.JFrame {
     
     public JFAddHotel() throws SQLException {
         initComponents();
+        this.setLocationRelativeTo(null);
         jComboCountries.removeAllItems();
         jComboStates.removeAllItems();
         jComboCities.removeAllItems();

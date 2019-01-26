@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.MetodosAcesso;
+import java.awt.List;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -223,5 +224,16 @@ public class Hotel
     {
         MetodosAcesso mtd = new MetodosAcesso();
         return mtd.removeHotelImages(url);
+    }
+    
+    public Vector<Hotel> searchHotel(char search_type, String search) throws SQLException
+    {
+        Vector<Hotel> hotel_list = new Vector<Hotel>();
+        MetodosAcesso mtd = new MetodosAcesso();
+        /*
+        Search type n = hotel name
+        Search type i = hotel id
+        */
+        return hotel_list = mtd.searchHotel(search_type, search);
     }
 }

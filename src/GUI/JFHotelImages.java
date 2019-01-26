@@ -59,6 +59,7 @@ public class JFHotelImages extends javax.swing.JFrame {
     
     public JFHotelImages() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

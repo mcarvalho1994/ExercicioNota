@@ -42,6 +42,7 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
     
     public JFGuiHoteleiroMain() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -153,6 +154,7 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
 
     private void jMenuSearchHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSearchHotelActionPerformed
         JFSearchHotel jfsh = new JFSearchHotel();
+        jfsh.load_user(user);
         jfsh.show();
     }//GEN-LAST:event_jMenuSearchHotelActionPerformed
 

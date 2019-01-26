@@ -5,6 +5,25 @@
  */
 package GUI;
 
+import Controller.ComboMultiData;
+import Controller.Hotel;
+import Controller.JPanelResults;
+import Controller.User;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
+
 /**
  *
  * @author Hélio
@@ -14,8 +33,39 @@ public class JFSearchHotel extends javax.swing.JFrame {
     /**
      * Creates new form JFSearchHotel
      */
-    public JFSearchHotel() {
+    private User user;
+    
+    public void load_user(User user)
+    {
+        this.user = user;
+    }
+    
+    public void fulfill_combo_search_options()
+    {
+        Vector<ComboMultiData> v = new Vector<ComboMultiData>();
+        v.addElement(new ComboMultiData(0, "Nome"));
+        v.addElement(new ComboMultiData(1, "Localização"));
+        DefaultComboBoxModel model = new DefaultComboBoxModel(v);
+        jComboSearchType.setModel(model);
+    }
+    
+    public void display_results(Vector<Hotel> vh)
+    {
+        JPanel results = new JPanel();
+        results.setLayout(new GridLayout(vh.size(), 1));
+        for(int i = 0 ; i < vh.size(); i++)
+        {
+            JPanelResults jpr = new JPanelResults(vh.get(i), i*100);
+            results.add(jpr);
+        }
+        jScrollPaneResults.getViewport().add(results);
+    }
+    
+    public JFSearchHotel()
+    {
         initComponents();
+        this.setLocationRelativeTo(null);
+        fulfill_combo_search_options();
     }
 
     /**
@@ -30,6 +80,7 @@ public class JFSearchHotel extends javax.swing.JFrame {
         jComboSearchType = new javax.swing.JComboBox<>();
         jTxtSearchText = new javax.swing.JTextField();
         jBtnSearch = new javax.swing.JButton();
+        jScrollPaneResults = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Guia Hoteleiro - Pesquisar Hotel");
@@ -38,6 +89,11 @@ public class JFSearchHotel extends javax.swing.JFrame {
         jComboSearchType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jBtnSearch.setText("Pesquisar");
+        jBtnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -45,11 +101,14 @@ public class JFSearchHotel extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTxtSearchText, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPaneResults, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jComboSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTxtSearchText, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -60,11 +119,30 @@ public class JFSearchHotel extends javax.swing.JFrame {
                     .addComponent(jComboSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtSearchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnSearch))
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPaneResults, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchActionPerformed
+    if(((ComboMultiData)jComboSearchType.getSelectedItem()).getValue() == 0)
+    {
+        Hotel h = new Hotel();
+        Vector<Hotel> vh = new Vector<Hotel>();
+        try
+        {
+            vh = h.searchHotel('n', jTxtSearchText.getText());
+        }
+        catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        display_results(vh);
+    }
+    }//GEN-LAST:event_jBtnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,6 +182,7 @@ public class JFSearchHotel extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnSearch;
     private javax.swing.JComboBox<String> jComboSearchType;
+    private javax.swing.JScrollPane jScrollPaneResults;
     private javax.swing.JTextField jTxtSearchText;
     // End of variables declaration//GEN-END:variables
 }

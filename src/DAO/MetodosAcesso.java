@@ -656,4 +656,74 @@ public class MetodosAcesso
             return false;
         }  
     }
+    
+    // 15 - Search Hotel
+    public Vector<Hotel> searchHotel(char search_type, String search) throws SQLException
+    {
+        /*
+        Search type n = hotel name
+        Search type i = hotel id
+        */
+        Vector<Hotel> hotel_list = new Vector<Hotel>();
+        String sql_hotel = "";
+        String sql_hotel_photos = "SELECT photo_path FROM hotel_photos WHERE hotel_id = ? LIMIT 1";
+        Connection conn = MySQLConnection.getMySQLConnection();
+        switch(search_type)
+        {
+            case 'n' :
+                sql_hotel = "SELECT hotel_id, hotel_name, hotel_description, hotel_daily_rate, bedrooms_number "
+                        + "FROM hotels WHERE hotel_name LIKE '%" + search + "%'";
+                break;
+            case 'i' :
+                sql_hotel = "SELECT hotel_id, hotel_name, hotel_description, hotel_daily_rate, bedrooms_number "
+                        + "FROM hotels WHERE hotel_id = " + Integer.parseInt(search);
+                break;
+        }
+        
+        try
+        {
+            PreparedStatement stmt_hotel = conn.prepareStatement(sql_hotel);
+            ResultSet rs_hotel = stmt_hotel.executeQuery();
+            
+            while(rs_hotel.next())
+            {
+                Hotel h = new Hotel();
+                Set<File> hotel_photos = new HashSet<File>();
+                h.setHotel_id(rs_hotel.getInt("hotel_id"));
+                h.setHotel_name(rs_hotel.getString("hotel_name"));
+                h.setHotel_description(rs_hotel.getString("hotel_description"));
+                h.setHotel_daily_rate(rs_hotel.getDouble("hotel_daily_rate"));
+                h.setBedrooms_number(rs_hotel.getInt("bedrooms_number"));
+                
+                PreparedStatement stmt_hotel_photos = conn.prepareStatement(sql_hotel_photos);
+                stmt_hotel_photos.setInt(1, h.getHotel_id());
+                ResultSet rs_hotel_photos = stmt_hotel_photos.executeQuery();     
+                
+                if(rs_hotel_photos.first())
+                {
+                    hotel_photos.add(new File(rs_hotel_photos.getString("photo_path")));
+                }
+                h.setHotel_photos(hotel_photos);
+                
+                hotel_list.add(h);
+            }
+        }
+        catch(SQLException e)
+        {
+            Calendar c = Calendar.getInstance();          
+            
+            try
+            {
+                PrintWriter out = new PrintWriter(new FileWriter("error.log"));
+                out.println(c.getTime() + " - " + e.getMessage());
+                out.close();
+            }
+            catch(IOException ioe)
+            {
+                System.out.println("Erro durante gravação: " + ioe.getMessage());
+            }
+        }  
+        System.err.println(hotel_list.size());
+        return hotel_list;
+    }
 }

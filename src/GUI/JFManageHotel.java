@@ -138,6 +138,7 @@ public class JFManageHotel extends javax.swing.JFrame {
     
     public JFManageHotel() throws SQLException {
         initComponents();
+        this.setLocationRelativeTo(null);
         jComboCountries.removeAllItems();
         jComboStates.removeAllItems();
         jComboCities.removeAllItems();
