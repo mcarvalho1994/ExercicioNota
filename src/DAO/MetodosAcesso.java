@@ -7,6 +7,7 @@ package DAO;
 
 import Controller.Address;
 import Controller.ComboMultiData;
+import Controller.Comment;
 import Controller.Hotel;
 import Controller.User;
 import DAO.MySQLConnection;
@@ -508,7 +509,51 @@ public class MetodosAcesso
         return va;
     }
     
-    // 11 - Get the city index for the state
+    // 11 - Load Address
+    public  Address load_address(int id) throws SQLException
+    {
+        Address a = new Address();
+        Connection conn = MySQLConnection.getMySQLConnection();
+        String sql = "SELECT a.address, a.city_id, ct.city_name, s.state_id, s.state_name, c.country_id, c.country_name FROM addresses a \n" +
+                    "INNER JOIN cities ct ON a.city_id = ct.city_id\n" +
+                    "INNER JOIN states s ON ct.state_id = s.state_id\n" +
+                    "INNER JOIN countries c ON s.country_id = c.country_id\n" +
+                    "WHERE a.hotel_id = ?";      
+        try
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                a.setAddress(rs.getString("address"));
+                a.setCountry(rs.getInt("country_id"));
+                a.setCountry_name(rs.getString("country_name"));
+                a.setState(rs.getInt("state_id"));
+                a.setState_name(rs.getString("state_name"));
+                a.setCity(rs.getInt("city_id"));
+                a.setCity_name(rs.getString("city_name"));
+            }
+        }
+        catch(SQLException e)
+        {
+            Calendar c = Calendar.getInstance();          
+            
+            try
+            {
+                PrintWriter out = new PrintWriter(new FileWriter("error.log"));
+                out.println(c.getTime() + " - " + e.getMessage());
+                out.close();
+            }
+            catch(IOException ioe)
+            {
+                System.out.println("Erro durante gravação: " + ioe.getMessage());
+            }
+        }
+        return a;
+    }
+    
+    // 12 - Get the city index for the state
     public int getCityIndex(int state_id, int city_id) throws SQLException
     {
         int id = 0;
@@ -547,7 +592,7 @@ public class MetodosAcesso
         return id;
     }
     
-    // 12 - Manage hotel
+    // 13 - Manage hotel
     public boolean manageHotel(Hotel h) throws SQLException
     {
         Connection conn = MySQLConnection.getMySQLConnection();
@@ -583,7 +628,7 @@ public class MetodosAcesso
         }      
     }
     
-    // 13 - Remove Hotel Image
+    // 14 - Remove Hotel Image
     public boolean removeHotelImages(Vector<String> url) throws SQLException
     {
         Connection conn = MySQLConnection.getMySQLConnection();
@@ -615,7 +660,7 @@ public class MetodosAcesso
             return false;
         }  
     }
-    // 14 - Manage Address
+    // 15 - Manage Address
     public boolean manageAddress(Address a, int id, String address_type) throws SQLException
     {
         String field = "";
@@ -657,12 +702,12 @@ public class MetodosAcesso
         }  
     }
     
-    // 15 - Search Hotel
+    // 16 - Search Hotel
     public Vector<Hotel> searchHotel(char search_type, String search) throws SQLException
     {
         /*
         Search type n = hotel name
-        Search type i = hotel id
+        Search type a = Adress
         */
         Vector<Hotel> hotel_list = new Vector<Hotel>();
         String sql_hotel = "";
@@ -674,15 +719,23 @@ public class MetodosAcesso
                 sql_hotel = "SELECT hotel_id, hotel_name, hotel_description, hotel_daily_rate, bedrooms_number "
                         + "FROM hotels WHERE hotel_name LIKE '%" + search + "%'";
                 break;
-            case 'i' :
-                sql_hotel = "SELECT hotel_id, hotel_name, hotel_description, hotel_daily_rate, bedrooms_number "
-                        + "FROM hotels WHERE hotel_id = " + Integer.parseInt(search);
+            case 'a' :
+                sql_hotel = "SELECT h.hotel_id, h.hotel_name, h.hotel_description, h.hotel_daily_rate, h.bedrooms_number FROM addresses a \n" +
+                            "INNER JOIN hotels h ON a.hotel_id = h.hotel_id\n" +
+                            "INNER JOIN cities ct ON a.city_id = ct.city_id\n" +
+                            "INNER JOIN states s ON ct.state_id = s.state_id\n" +
+                            "INNER JOIN countries c ON s.country_id = c.country_id\n" +
+                            "WHERE a.address LIKE '%" + search + "%'\n" +
+                            "OR ct.city_name LIKE '%" + search + "%'\n" +
+                            "OR s.state_name LIKE '%" + search + "%'\n" +
+                            "OR c.country_name LIKE '%" + search + "%'";
                 break;
         }
         
         try
         {
             PreparedStatement stmt_hotel = conn.prepareStatement(sql_hotel);
+            
             ResultSet rs_hotel = stmt_hotel.executeQuery();
             
             while(rs_hotel.next())
@@ -723,7 +776,38 @@ public class MetodosAcesso
                 System.out.println("Erro durante gravação: " + ioe.getMessage());
             }
         }  
-        System.err.println(hotel_list.size());
         return hotel_list;
+    }
+    
+    public boolean addComment(Comment comment, int hotel_id, int user_id) throws SQLException
+    {
+        Connection conn = MySQLConnection.getMySQLConnection();
+        String sql = "INSERT INTO comments (hotel_id, user_id, comment_date, comment, note) VALUES (?, ?, NOW(), ?, ?)";
+        try
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, hotel_id);
+            stmt.setInt(2, user_id);
+            stmt.setString(3, comment.getComment());
+            stmt.setInt(4, comment.getNote());
+            stmt.execute();
+            return true;
+        }
+        catch(SQLException e)
+        {
+            Calendar c = Calendar.getInstance();          
+            
+            try
+            {
+                PrintWriter out = new PrintWriter(new FileWriter("error.log"));
+                out.println(c.getTime() + " - " + e.getMessage());
+                out.close();
+            }
+            catch(IOException ioe)
+            {
+                System.out.println("Erro durante gravação: " + ioe.getMessage());
+            }
+            return false;
+        }  
     }
 }

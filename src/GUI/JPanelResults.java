@@ -3,33 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package GUI;
 
+import Controller.Address;
+import Controller.Hotel;
+import Controller.User;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
  *
- * @author Hélio
+ * @author Marcos
  */
 public class JPanelResults extends JPanel
 {
     
-    public JPanelResults(Hotel h, int y)
+    public JPanelResults(Hotel h, Address a, int y, User user)
     {
         /*
         JPanelResults properties
         */
-        setLayout(new GridLayout(0, 4));
+        setLayout(new GridLayout(0, 6));
         setBounds(0, y, 500, 100);
         
         /*
@@ -37,7 +45,6 @@ public class JPanelResults extends JPanel
         */
         //Image Panel
         JPanel jPanelImage = new JPanel();
-        jPanelImage.setBounds(0, y, 100, 100);
         String path_url = "";
         for(File file : h.getHotel_photos())
         {
@@ -47,13 +54,21 @@ public class JPanelResults extends JPanel
         ImageIcon icon = new ImageIcon(path_url);
         jLblImage.setIcon(icon);
         jPanelImage.add(jLblImage);
-        //Hotel description  Panel
-        JPanel jPanelHotelDescription = new JPanel();
-        JLabel jLblHotelDescription = new JLabel(h.getHotel_name() + " - " + h.getHotel_description());
-        jPanelHotelDescription.add(jLblHotelDescription);
+        //Hotel name  Panel
+        JPanel jPanelHotelName = new JPanel();
+        JLabel jLblHotelName = new JLabel(h.getHotel_name());
+        jPanelHotelName.add(jLblHotelName);
+        //Address Panel
+        JPanel jPanelAddress = new JPanel();
+        JLabel jLblAddress = new JLabel(a.getAddress() + " " + a.getCity_name());
+        jPanelAddress.add(jLblAddress);
+        //Country and State Panel
+        JPanel jPanelCAndE = new JPanel();
+        JLabel jLblCandE = new JLabel(a.getState_name() + " - " + a.getCountry_name());
+        jPanelCAndE.add(jLblCandE);
         //Hotel Daily Rate Panel
         JPanel jPanelHotelDailyRate = new JPanel();
-        JLabel jLblHotelDailyRate = new JLabel(String.valueOf(h.getHotel_daily_rate()).replace(".", ","));
+        JLabel jLblHotelDailyRate = new JLabel("R$ " + String.valueOf(h.getHotel_daily_rate()).replace(".", ","));
         jPanelHotelDailyRate.add(jLblHotelDailyRate);
         //Add a comment Panel
         JPanel jPanelAddComment = new JPanel();
@@ -62,7 +77,9 @@ public class JPanelResults extends JPanel
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                JOptionPane.showMessageDialog(null, "Ainda não implementado");
+                JFAddComment jfac = new JFAddComment();
+                jfac.load_informations(user, h);
+                jfac.show();
             }
 
             @Override
@@ -90,7 +107,9 @@ public class JPanelResults extends JPanel
         Adding the other panels to the JPanelResults
         */
         this.add(jPanelImage);
-        this.add(jPanelHotelDescription);
+        this.add(jPanelHotelName);
+        this.add(jPanelAddress);
+        this.add(jPanelCAndE);
         this.add(jPanelHotelDailyRate);
         this.add(jPanelAddComment);
     }

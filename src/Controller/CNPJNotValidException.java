@@ -7,7 +7,7 @@ package Controller;
 
 /**
  *
- * @author Hélio
+ * @author Marcos
  */
 public class CNPJNotValidException extends Exception
 {

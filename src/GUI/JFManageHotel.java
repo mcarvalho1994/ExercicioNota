@@ -25,7 +25,7 @@ import javax.swing.JScrollPane;
 
 /**
  *
- * @author Hélio
+ * @author Marcos
  */
 public class JFManageHotel extends javax.swing.JFrame {
 

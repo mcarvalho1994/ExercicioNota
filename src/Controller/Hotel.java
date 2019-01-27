@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Hélio
+ * @author Marcos
  */
 public class Hotel
 {
@@ -232,7 +232,7 @@ public class Hotel
         MetodosAcesso mtd = new MetodosAcesso();
         /*
         Search type n = hotel name
-        Search type i = hotel id
+        Search type a = Adress
         */
         return hotel_list = mtd.searchHotel(search_type, search);
     }

@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Hélio
+ * @author Marcos
  */
 public class JFGuiHoteleiroMain extends javax.swing.JFrame {
 
@@ -55,16 +55,23 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
     private void initComponents() {
 
         jLblUserName = new javax.swing.JLabel();
+        jLblLogOut = new javax.swing.JLabel();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuHotel = new javax.swing.JMenu();
         jMenuAddHotel = new javax.swing.JMenuItem();
         jMenuAlterHotel = new javax.swing.JMenuItem();
         jMenuSearchHotel = new javax.swing.JMenuItem();
-        JmenuLogOut = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Guia Hoteleiro - Home");
         setResizable(false);
+
+        jLblLogOut.setText("Logout");
+        jLblLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLblLogOutMouseClicked(evt);
+            }
+        });
 
         jMenuHotel.setText("Hotel");
 
@@ -94,24 +101,17 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
 
         jMenuBar.add(jMenuHotel);
 
-        JmenuLogOut.setText("Logout");
-        JmenuLogOut.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        JmenuLogOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JmenuLogOutActionPerformed(evt);
-            }
-        });
-        jMenuBar.add(JmenuLogOut);
-
         setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(390, Short.MAX_VALUE)
-                .addComponent(jLblUserName)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(357, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLblUserName, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLblLogOut, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -119,7 +119,9 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLblUserName)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jLblLogOut)
+                .addContainerGap())
         );
 
         pack();
@@ -158,11 +160,11 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
         jfsh.show();
     }//GEN-LAST:event_jMenuSearchHotelActionPerformed
 
-    private void JmenuLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmenuLogOutActionPerformed
+    private void jLblLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLblLogOutMouseClicked
         JFLogin jfl = new JFLogin();
         this.dispose();
         jfl.show();
-    }//GEN-LAST:event_JmenuLogOutActionPerformed
+    }//GEN-LAST:event_jLblLogOutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -200,7 +202,7 @@ public class JFGuiHoteleiroMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu JmenuLogOut;
+    private javax.swing.JLabel jLblLogOut;
     private javax.swing.JLabel jLblUserName;
     private javax.swing.JMenuItem jMenuAddHotel;
     private javax.swing.JMenuItem jMenuAlterHotel;

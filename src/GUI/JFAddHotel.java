@@ -28,7 +28,7 @@ import javax.swing.filechooser.FileSystemView;
 
 /**
  *
- * @author Hélio
+ * @author Marcos
  */
 public class JFAddHotel extends javax.swing.JFrame {
 
@@ -105,6 +105,7 @@ public class JFAddHotel extends javax.swing.JFrame {
         jComboCities.removeAllItems();
         jComboCountries.addItem("- Selecione um país -");
         fulfillComponents("countries");
+        jTxtAreaDrescription.setColumns(300);
     }
 
     /**
@@ -274,7 +275,7 @@ public class JFAddHotel extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jTxtAreaDrescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtAreaDrescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

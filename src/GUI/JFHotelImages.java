@@ -22,7 +22,7 @@ import javax.swing.filechooser.FileSystemView;
 
 /**
  *
- * @author Hélio
+ * @author Marcos
  */
 public class JFHotelImages extends javax.swing.JFrame {
 

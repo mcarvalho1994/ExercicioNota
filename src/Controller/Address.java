@@ -19,6 +19,9 @@ public class Address
     private int city;
     private int state;
     private int country;
+    private String city_name;
+    private String state_name;
+    private String country_name;
     private String address_type;
     
     public boolean addAddress(Address address, String document) throws SQLException
@@ -54,6 +57,30 @@ public class Address
         v = dao.list(type, index);
         
         return v;
+    }  
+    
+        public Vector<Address> loadAddress(String address_type, int id) throws SQLException
+    {
+        Vector<Address> va = new Vector<Address>();
+        MetodosAcesso mtd = new MetodosAcesso();
+        va = mtd.load_address(id, address_type);
+        return va;
+    }
+    
+    public Address loadAddress(int id) throws SQLException
+    {
+        Address a = new Address();
+        MetodosAcesso mtd = new MetodosAcesso();
+        a = mtd.load_address(id);
+        return a;
+    }
+    
+    public int getCityIndex(int state_id, int city_id) throws SQLException
+    {
+        int index = 0;
+        MetodosAcesso mtd = new MetodosAcesso();
+        index = mtd.getCityIndex(state_id, city_id);
+        return index;
     }  
 
     /**
@@ -126,20 +153,45 @@ public class Address
         this.address_type = address_type;
     }
     
-    public Vector<Address> loadAddress(String address_type, int id) throws SQLException
-    {
-        Vector<Address> va = new Vector<Address>();
-        MetodosAcesso mtd = new MetodosAcesso();
-        va = mtd.load_address(id, address_type);
-        return va;
+    /**
+     * @return the city_name
+     */
+    public String getCity_name() {
+        return city_name;
     }
-    
-    public int getCityIndex(int state_id, int city_id) throws SQLException
-    {
-        int index = 0;
-        MetodosAcesso mtd = new MetodosAcesso();
-        index = mtd.getCityIndex(state_id, city_id);
-        return index;
+
+    /**
+     * @param city_name the city_name to set
+     */
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
     }
-    
+
+    /**
+     * @return the state_name
+     */
+    public String getState_name() {
+        return state_name;
+    }
+
+    /**
+     * @param state_name the state_name to set
+     */
+    public void setState_name(String state_name) {
+        this.state_name = state_name;
+    }
+
+    /**
+     * @return the country_name
+     */
+    public String getCountry_name() {
+        return country_name;
+    }
+
+    /**
+     * @param country_name the country_name to set
+     */
+    public void setCountry_name(String country_name) {
+        this.country_name = country_name;
+    }  
 }

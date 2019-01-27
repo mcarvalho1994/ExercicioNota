@@ -5,9 +5,9 @@
  */
 package GUI;
 
+import Controller.Address;
 import Controller.ComboMultiData;
 import Controller.Hotel;
-import Controller.JPanelResults;
 import Controller.User;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -26,7 +26,7 @@ import javax.swing.border.LineBorder;
 
 /**
  *
- * @author Hélio
+ * @author Marcos
  */
 public class JFSearchHotel extends javax.swing.JFrame {
 
@@ -49,13 +49,13 @@ public class JFSearchHotel extends javax.swing.JFrame {
         jComboSearchType.setModel(model);
     }
     
-    public void display_results(Vector<Hotel> vh)
+    public void display_results(Vector<Hotel> vh, Vector<Address> va)
     {
         JPanel results = new JPanel();
         results.setLayout(new GridLayout(vh.size(), 1));
         for(int i = 0 ; i < vh.size(); i++)
         {
-            JPanelResults jpr = new JPanelResults(vh.get(i), i*100);
+            JPanelResults jpr = new JPanelResults(vh.get(i), va.get(i), i*100, user);
             results.add(jpr);
         }
         jScrollPaneResults.getViewport().add(results);
@@ -128,20 +128,29 @@ public class JFSearchHotel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSearchActionPerformed
-    if(((ComboMultiData)jComboSearchType.getSelectedItem()).getValue() == 0)
+    Hotel h = new Hotel();
+    Address a = new Address();
+    Vector<Hotel> vh = new Vector<Hotel>();
+    Vector<Address> va = new Vector<Address>();
+    try
     {
-        Hotel h = new Hotel();
-        Vector<Hotel> vh = new Vector<Hotel>();
-        try
-        {
+        if(((ComboMultiData)jComboSearchType.getSelectedItem()).getValue() == 0)
             vh = h.searchHotel('n', jTxtSearchText.getText());
-        }
-        catch (SQLException ex)
+        else if(((ComboMultiData)jComboSearchType.getSelectedItem()).getValue() == 1)
+            vh = h.searchHotel('a', jTxtSearchText.getText());
+
+        
+        for(int i = 0; i < vh.size(); i++)
         {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            va.addElement(a.loadAddress(vh.get(i).getHotel_id()));
         }
-        display_results(vh);
+
     }
+    catch (SQLException ex)
+    {
+        JOptionPane.showMessageDialog(null, ex.getMessage());
+    }
+    display_results(vh, va);
     }//GEN-LAST:event_jBtnSearchActionPerformed
 
     /**
